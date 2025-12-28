@@ -1,0 +1,26 @@
+{
+  "short_name": "ARK Protocol",
+  "name": "ARK Protocol - Solana Wallet Verification",
+  "description": "Trust infrastructure for the Solana ecosystem. Verify wallet addresses with AI-powered risk detection.",
+  "icons": [
+    {
+      "src": "app-icon.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "app-icon.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "app-icon.png",
+      "type": "image/png",
+      "sizes": "64x64"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#22c55e",
+  "background_color": "#050505"
+}

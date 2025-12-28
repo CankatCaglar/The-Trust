@@ -1,0 +1,222 @@
+{
+  "total_tests": 9,
+  "passed_tests": 9,
+  "failed_tests": 0,
+  "success_rate": 100.0,
+  "test_details": [
+    {
+      "test_name": "API Root Endpoint",
+      "success": true,
+      "details": "Status: 200",
+      "response_data": {
+        "message": "ARK Protocol API"
+      },
+      "timestamp": "2025-12-25T14:28:58.415023"
+    },
+    {
+      "test_name": "Wallet Verification (Valid)",
+      "success": true,
+      "details": "Risk: safe, Valid: True",
+      "response_data": {
+        "address": "So11111111111111111111111111111111111111112",
+        "is_valid": true,
+        "risk_level": "safe",
+        "steps": [
+          {
+            "step": 1,
+            "name": "AI Pattern Analysis",
+            "status": "completed",
+            "result": "Valid Base58 format"
+          },
+          {
+            "step": 2,
+            "name": "On-Chain Scan",
+            "status": "completed",
+            "result": "Balance: 1000000.5 SOL, 50000000 transactions"
+          },
+          {
+            "step": 3,
+            "name": "AI Risk Detection",
+            "status": "completed",
+            "result": "No suspicious patterns detected"
+          },
+          {
+            "step": 4,
+            "name": "Terminal Verification",
+            "status": "completed",
+            "result": "solana address verified"
+          }
+        ],
+        "summary": "This wallet address is verified and appears safe. It has 50000000 transactions with a balance of 1000000.5 SOL.",
+        "balance": 1000000.5,
+        "transaction_count": 50000000
+      },
+      "timestamp": "2025-12-25T14:28:58.454110"
+    },
+    {
+      "test_name": "Wallet Verification (USDC)",
+      "success": true,
+      "details": "Risk: safe, Balance: 500000000.0",
+      "response_data": {
+        "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "is_valid": true,
+        "risk_level": "safe",
+        "steps": [
+          {
+            "step": 1,
+            "name": "AI Pattern Analysis",
+            "status": "completed",
+            "result": "Valid Base58 format"
+          },
+          {
+            "step": 2,
+            "name": "On-Chain Scan",
+            "status": "completed",
+            "result": "Balance: 500000000.0 SOL, 10000000 transactions"
+          },
+          {
+            "step": 3,
+            "name": "AI Risk Detection",
+            "status": "completed",
+            "result": "No suspicious patterns detected"
+          },
+          {
+            "step": 4,
+            "name": "Terminal Verification",
+            "status": "completed",
+            "result": "solana address verified"
+          }
+        ],
+        "summary": "This wallet address is verified and appears safe. It has 10000000 transactions with a balance of 500000000.0 SOL.",
+        "balance": 500000000.0,
+        "transaction_count": 10000000
+      },
+      "timestamp": "2025-12-25T14:28:58.494054"
+    },
+    {
+      "test_name": "Wallet Verification (Risky)",
+      "success": true,
+      "details": "Risk: risky, Summary: Warning: This address shows suspicious patterns. L...",
+      "response_data": {
+        "address": "ScamScamScamScamScamScamScamScamScamScamScam",
+        "is_valid": true,
+        "risk_level": "risky",
+        "steps": [
+          {
+            "step": 1,
+            "name": "AI Pattern Analysis",
+            "status": "completed",
+            "result": "Valid Base58 format"
+          },
+          {
+            "step": 2,
+            "name": "On-Chain Scan",
+            "status": "completed",
+            "result": "Balance: 0.0 SOL, 5 transactions"
+          },
+          {
+            "step": 3,
+            "name": "AI Risk Detection",
+            "status": "completed",
+            "result": "Warning: Low activity or suspicious patterns"
+          },
+          {
+            "step": 4,
+            "name": "Terminal Verification",
+            "status": "completed",
+            "result": "solana address verified"
+          }
+        ],
+        "summary": "Warning: This address shows suspicious patterns. Low transaction history (5 tx) may indicate a new or compromised wallet.",
+        "balance": 0.0,
+        "transaction_count": 5
+      },
+      "timestamp": "2025-12-25T14:28:58.528068"
+    },
+    {
+      "test_name": "Wallet Verification (Invalid)",
+      "success": true,
+      "details": "Risk: invalid, Valid: False",
+      "response_data": {
+        "address": "invalid_address_123",
+        "is_valid": false,
+        "risk_level": "invalid",
+        "steps": [
+          {
+            "step": 1,
+            "name": "AI Pattern Analysis",
+            "status": "completed",
+            "result": "Invalid address format"
+          },
+          {
+            "step": 2,
+            "name": "On-Chain Scan",
+            "status": "completed",
+            "result": "Address not found on-chain"
+          },
+          {
+            "step": 3,
+            "name": "AI Risk Detection",
+            "status": "completed",
+            "result": "Cannot analyze invalid address"
+          },
+          {
+            "step": 4,
+            "name": "Terminal Verification",
+            "status": "completed",
+            "result": "solana: invalid address"
+          }
+        ],
+        "summary": "Invalid Solana address format. Please check and try again.",
+        "balance": null,
+        "transaction_count": null
+      },
+      "timestamp": "2025-12-25T14:28:58.567891"
+    },
+    {
+      "test_name": "Verification Steps Structure",
+      "success": true,
+      "details": "All 4 steps present with correct names",
+      "response_data": {
+        "step_count": 4,
+        "names": [
+          "AI Pattern Analysis",
+          "On-Chain Scan",
+          "AI Risk Detection",
+          "Terminal Verification"
+        ]
+      },
+      "timestamp": "2025-12-25T14:28:58.605001"
+    },
+    {
+      "test_name": "Stats Endpoint",
+      "success": true,
+      "details": "All stats fields present",
+      "response_data": {
+        "total_verifications": 6,
+        "safe_count": 4,
+        "risky_count": 1,
+        "invalid_count": 1
+      },
+      "timestamp": "2025-12-25T14:28:58.681755"
+    },
+    {
+      "test_name": "Status POST",
+      "success": true,
+      "details": "Status created with ID: 257dd445...",
+      "response_data": {
+        "id": "257dd445-9cb1-478b-adff-48c133e6e1ef"
+      },
+      "timestamp": "2025-12-25T14:28:58.731443"
+    },
+    {
+      "test_name": "Status GET",
+      "success": true,
+      "details": "Retrieved 1 status checks",
+      "response_data": {
+        "count": 1
+      },
+      "timestamp": "2025-12-25T14:28:58.806136"
+    }
+  ]
+}
