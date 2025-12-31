@@ -19,8 +19,7 @@ const FOOTER_LINKS = {
   ],
   Connect: [
     { label: 'X', href: 'https://x.com/ARK_Protocol_', isX: true, active: true },
-    { label: 'Telegram', href: '#', isTelegram: true, active: true },
-    { label: 'Discord', href: '#', comingSoon: true }
+    { label: 'Telegram', href: '#', isTelegram: true, comingSoon: true }
   ]
 };
 
