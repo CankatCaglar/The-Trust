@@ -63,7 +63,12 @@ export const useVerification = () => {
           console.log('Making API call to:', `${API}/verify`);
           console.log('Request payload:', { address });
           
-          const response = await axios.post(`${API}/verify`, { address });
+          const response = await axios.post(`${API}/verify`, { address }, {
+            timeout: 30000, // 30 seconds timeout for cold start
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          });
           
           console.log('API Response:', response.data);
           console.log('Response steps:', response.data.steps);
