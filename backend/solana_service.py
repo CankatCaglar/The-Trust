@@ -37,16 +37,30 @@ class SolanaService:
         except Exception as e:
             logger.error(f"Error fetching balance for {address}: {e}")
     
-    def get_transaction_count(self, address: str, limit: int = 1000) -> int:
-        """Get approximate transaction count for an address"""
+    def get_transaction_count(self, address: str) -> int:
+        """Get real transaction count using Solana Explorer API"""
         try:
             pubkey = Pubkey.from_string(address)
             
-            # Get signatures (transaction history)
-            response = self.client.get_signatures_for_address(pubkey, limit=limit)
+            # Try Solana Explorer API first (much faster)
+            import requests
+            explorer_url = f"https://api.solscan.io/account?address={address}"
+            response = requests.get(explorer_url, timeout=5)
             
-            if hasattr(response, 'value') and response.value:
-                return len(response.value)
+            if response.status_code == 200:
+                data = response.json()
+                if 'data' in data and 'transactionCount' in data['data']:
+                    return data['data']['transactionCount']
+            
+            # Fallback to RPC with small limit
+            signatures_response = self.client.get_signatures_for_address(
+                pubkey, 
+                limit=50  # Very small limit for speed
+            )
+            if hasattr(signatures_response, 'value') and signatures_response.value:
+                return len(signatures_response.value)
+            
+            return 0
         except Exception as e:
             logger.error(f"Error fetching transactions for {address}: {e}")
             return 0
