@@ -38,29 +38,43 @@ class SolanaService:
             logger.error(f"Error fetching balance for {address}: {e}")
     
     def get_transaction_count(self, address: str) -> int:
-        """Get real transaction count using Solana Explorer API"""
+        """Get real transaction count using Solana RPC with pagination"""
         try:
             pubkey = Pubkey.from_string(address)
             
-            # Try Solana Explorer API first (much faster)
-            import requests
-            explorer_url = f"https://api.solscan.io/account?address={address}"
-            response = requests.get(explorer_url, timeout=5)
+            # Get signatures in batches (more reliable)
+            total_count = 0
+            before_signature = None
+            max_iterations = 10  # Prevent infinite loops
             
-            if response.status_code == 200:
-                data = response.json()
-                if 'data' in data and 'transactionCount' in data['data']:
-                    return data['data']['transactionCount']
+            for _ in range(max_iterations):
+                try:
+                    if before_signature:
+                        response = self.client.get_signatures_for_address(
+                            pubkey, 
+                            limit=100, 
+                            before=before_signature
+                        )
+                    else:
+                        response = self.client.get_signatures_for_address(pubkey, limit=100)
+                    
+                    if hasattr(response, 'value') and response.value:
+                        batch_count = len(response.value)
+                        total_count += batch_count
+                        
+                        if batch_count < 100:  # Last batch
+                            break
+                        
+                        before_signature = response.value[-1].signature
+                    else:
+                        break
+                        
+                except Exception as e:
+                    logger.warning(f"Batch failed: {e}")
+                    break
             
-            # Fallback to RPC with small limit
-            signatures_response = self.client.get_signatures_for_address(
-                pubkey, 
-                limit=50  # Very small limit for speed
-            )
-            if hasattr(signatures_response, 'value') and signatures_response.value:
-                return len(signatures_response.value)
+            return total_count
             
-            return 0
         except Exception as e:
             logger.error(f"Error fetching transactions for {address}: {e}")
             return 0
