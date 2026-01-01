@@ -64,7 +64,7 @@ export const useVerification = () => {
           console.log('Request payload:', { address });
           
           const response = await axios.post(`${API}/verify`, { address }, {
-            timeout: 30000, // 30 seconds timeout for cold start
+            timeout: 60000, // 60 seconds timeout for slow RPC
             headers: {
               'Content-Type': 'application/json',
             }

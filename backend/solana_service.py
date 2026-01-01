@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 class SolanaService:
     def __init__(self, rpc_url: str):
         self.rpc_url = rpc_url
-        self.client = Client(rpc_url)
+        self.client = Client(rpc_url, timeout=10)  # 10 second timeout
         logger.info(f"Initialized Solana RPC client: {rpc_url}")
     
     def validate_address_format(self, address: str) -> bool:
@@ -34,10 +34,8 @@ class SolanaService:
                 # Convert lamports to SOL (1 SOL = 1,000,000,000 lamports)
                 balance_sol = response.value / 1_000_000_000
                 return round(balance_sol, 4)
-            return None
         except Exception as e:
             logger.error(f"Error fetching balance for {address}: {e}")
-            return None
     
     def get_transaction_count(self, address: str, limit: int = 1000) -> int:
         """Get approximate transaction count for an address"""
@@ -49,7 +47,6 @@ class SolanaService:
             
             if hasattr(response, 'value') and response.value:
                 return len(response.value)
-            return 0
         except Exception as e:
             logger.error(f"Error fetching transactions for {address}: {e}")
             return 0
